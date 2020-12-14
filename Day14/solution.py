@@ -34,13 +34,13 @@ for instr in input:
         ])
 
         all_addreses = [masked_addr]
-        for i in range(mask.count('X')**2):
+        for i in range(masked_addr.count('X')):
+            new_addreses = []
             for addr in all_addreses:
-                if 'X' in addr:
-                    next_X = next(i for i, c in enumerate(addr) if c == 'X')
-                    all_addreses.remove(addr)
-                    all_addreses.append(addr[:next_X] + '1' + addr[next_X+1:])
-                    all_addreses.append(addr[:next_X] + '0' + addr[next_X+1:])
+                next_X = next(i for i, c in enumerate(addr) if c == 'X')
+                new_addreses.append(addr[:next_X] + '1' + addr[next_X+1:])
+                new_addreses.append(addr[:next_X] + '0' + addr[next_X+1:])
+            all_addreses = new_addreses
 
         for addr in all_addreses:
             memory[addr] = format(int(value), '036b')
