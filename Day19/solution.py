@@ -12,15 +12,15 @@ rules = {}
 for line in input:
     if ':' in line:
         rule, matches = line.split(':')
-        rules[rule] = matches.strip()
+        rules[rule] = matches.strip().replace('"','')
     elif line:
         messages.append(line)
 
 
 # part 1
 def matches(rule):
-    if rules[rule].replace('"','').isalpha():
-        return [rules[rule].replace('"','')]
+    if rules[rule].isalpha():
+        return [rules[rule]]
 
     possibilities = []
 
@@ -50,8 +50,8 @@ def matches_part2(rule):
         b = '(' + '|'.join(matches_part2('31')) + ')'
         return ['(?:' + '|'.join(f'{a}{{{n}}}{b}{{{n}}}' for n in range(1, 10)) + ')']
 
-    if rules[rule].replace('"','').isalpha():
-        return [rules[rule].replace('"','')]
+    if rules[rule].isalpha():
+        return [rules[rule]]
 
     possibilities = []
 
